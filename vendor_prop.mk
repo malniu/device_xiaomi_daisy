@@ -85,7 +85,8 @@ persist.debug.coresight.config=stm-events
 
 # Dalvik dex2oat
 PRODUCT_PROPERTY_OVERRIDES += \
-dalvik.vm.dex2oat64.enabled=true
+dalvik.vm.dex2oat64.enabled=true \
+ro.sys.fw.dex2oat_thread_count=8
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
