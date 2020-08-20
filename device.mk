@@ -359,7 +359,9 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc \
     init.recovery.qcom.rc \
     init.recovery.qcom.usb.rc \
-    init.daisy.rc
+    init.daisy.rc \
+    init.camera.rc \
+    init.camera.sh
 
 # RCS
 PRODUCT_PACKAGES += \
