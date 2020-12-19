@@ -70,6 +70,10 @@ vendor.camera.lowpower.record.enable=1 \
 vidc.enc.dcvs.extra-buff-count=2 \
 persist.camera.HAL3.enabled=1
 
+# Charger
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.charger.enable_suspend=true
+
 # Cne
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.vendor.cne.feature=1
