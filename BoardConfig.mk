@@ -40,15 +40,17 @@ TARGET_USES_64_BIT_BINDER := true
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 
 # Kernel
-TARGET_KERNEL_CONFIG := daisy_defconfig
 BOARD_KERNEL_BASE := 0x80000000
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 loop.max_part=16 androidboot.usbconfigfs=true
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 firmware_class.path=/vendor/firmware_mnt/image androidboot.usbconfigfs=true
+#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE :=  2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_SOURCE := kernel/xiaomi/daisy
+TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8953
+TARGET_KERNEL_CONFIG := sleepy_defconfig
 TARGET_KERNEL_VERSION := 4.9
+TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_USE_LATEST_CLANG := true
 
 # ANT
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -117,13 +119,13 @@ TARGET_ENABLE_MEDIADRM_64 := true
 # Filesystem
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
+TARGET_USES_MKE2FS := true
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_ROOT_EXTRA_SYMLINKS := \
-    /vendor/dsp:/dsp \
-    /vendor/firmware_mnt:/firmware \
-    /mnt/vendor/persist:/persist
 TARGET_COPY_OUT_VENDOR := vendor
+BOARD_USES_RECOVERY_AS_BOOT := true
+TARGET_NO_RECOVERY := true
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 
 # FM
@@ -150,14 +152,16 @@ TARGET_PROVIDES_LIBLIGHT := true
 TARGET_USES_MEDIA_EXTENSIONS := true
 
 # Partitions
+BOARD_HAS_REMOVABLE_STORAGE := true
+BOARD_VENDORIMAGE_PARTITION_SIZE := 805306368
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2684354560
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
-BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 25765043200 # 25765059584 - 16384
-BOARD_VENDORIMAGE_PARTITION_SIZE := 872415232
+BOARD_ROOT_EXTRA_SYMLINKS := \
+    /vendor/dsp:/dsp \
+    /vendor/firmware_mnt:/firmware \
+    /mnt/vendor/persist:/persist
 
 # Peripheral manager
 TARGET_PER_MGR_ENABLED := true
@@ -170,7 +174,7 @@ TARGET_USES_INTERACTION_BOOST := true
 BOARD_USES_QCOM_HARDWARE := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.recovery.qcom
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 
 # RIL
 DISABLE_RILD_OEM_HOOK := true
