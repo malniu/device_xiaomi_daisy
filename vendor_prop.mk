@@ -47,12 +47,18 @@ vendor.audio.feature.anc_headset.enable=true \
 vendor.audio.feature.fm.enable=true \
 vendor.audio.read.wsatz.type=true \
 vendor.audio.feature.multi_voice_session.enable=true \
-vendor.audio.feature.incall_music.enable=true
+vendor.audio.feature.incall_music.enable=true \
+vendor.audio.feature.a2dp_offload.enable=false
 
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
-vendor.qcom.bluetooth.soc=smd \
-ro.bluetooth.hfp.ver=1.7
+persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac \
+persist.bluetooth.a2dp_offload.disabled=true \
+persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac-aptxadaptive \
+persist.vendor.qcom.bluetooth.enable.splita2dp=false \
+persist.vendor.qcom.bluetooth.soc=pronto \
+ro.bluetooth.a2dp_offload.supported=false \
+vendor.qcom.bluetooth.soc=pronto
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
