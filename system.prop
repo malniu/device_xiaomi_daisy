@@ -25,3 +25,6 @@ ro.kernel.ebpf.supported=true
 
 # Zygote preforking
 persist.device_config.runtime_native.usap_pool_enabled=true
+
+# Display cutout
+ro.potato.has_cutout=true
