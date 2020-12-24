@@ -2087,6 +2087,24 @@ vendor/firmware/goodixfp.b05|cb9c666ce9653510954af7380936f5ccd3e7cc37
 vendor/firmware/goodixfp.b06|826951cf2ced420f537a17f97eec815f89f373b0
 vendor/firmware/goodixfp.mdt|4eb8e95418a3512469cc91bb8d01cecc401d42d0
 
+# Gatekeeper - from Daisy QKQ1.191002.002-V11.0.5.0.QDLMIXM
+vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
+vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
+vendor/lib/hw/android.hardware.gatekeeper@1.0-impl-qti.so
+vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so
+
+# Keymaster- from Daisy QKQ1.191002.002-V11.0.5.0.QDLMIXM
+vendor/bin/hw/android.hardware.keymaster@3.0-service-qti
+vendor/etc/init/android.hardware.keymaster@3.0-service-qti.rc
+vendor/lib/hw/android.hardware.keymaster@3.0-impl-qti.so
+vendor/lib/libkeymasterdeviceutils.so
+vendor/lib/libkeymasterprovision.so
+vendor/lib/libkeymasterutils.so
+vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so
+vendor/lib64/libkeymasterdeviceutils.so
+vendor/lib64/libkeymasterprovision.so
+vendor/lib64/libkeymasterutils.so
+
 # FM Radio - from LA.UM.9.6.2.r1-03300-89xx.0
 system_ext/lib64/fm_helium.so|55ef376cc802574df92025bebaba1cebcc74a918
 system_ext/lib64/libfm-hci.so|0cfbf3d84724428721973cc7ad22f5d1e1368591
