@@ -38,12 +38,24 @@ on fs
 
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
+    mkdir /mnt/vendor/persist/alarm 0770 system system
     mkdir /mnt/vendor/persist/data 0700 system system
     mkdir /mnt/vendor/persist/bms 0700 root system
     restorecon_recursive /mnt/vendor/persist
 
     chmod 0664 /sys/class/thermal/thermal_message/sconfig
     chown system system /sys/class/thermal/thermal_message/sconfig
+
+on init
+    setprop ro.vendor.hw.dualsim ${ro.boot.dualsim}
+    setprop ro.vendor.hw.device ${ro.boot.device}
+    setprop ro.vendor.hw.radio ${ro.boot.radio}
+
+on property:ro.vendor.hw.dualsim=true
+    setprop persist.radio.multisim.config dsds
+
+on property:ro.vendor.hw.dualsim=false
+    setprop persist.radio.multisim.config ""
 
 on init
     write /dev/stune/foreground/schedtune.sched_boost_no_override 1
@@ -55,11 +67,12 @@ on init
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
 
 # Add a cpuset for the camera daemon
-    mkdir /dev/cpuset/camera-daemon 0750 cameraserver cameraserver
+    mkdir /dev/cpuset/camera-daemon
     write /dev/cpuset/camera-daemon/cpus 0-7
     write /dev/cpuset/camera-daemon/mems 0
-    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
-    chmod 0660 /dev/cpuset/camera-daemon/tasks
+    chown system system /dev/cpuset/camera-daemon
+    chown system system /dev/cpuset/camera-daemon/tasks
+    chmod 0664 /dev/cpuset/camera-daemon/tasks
 
 service thermal-engine /vendor/bin/thermal-engine
    class main
@@ -79,7 +92,8 @@ on post-fs
 
 on post-fs-data
 #Create folder for mm-qcamera-daemon
-mkdir /data/vendor/qcam/ 0770 camera camera
+mkdir /data/vendor/camera 0770 camera camera
+mkdir /data/misc/camera 0770 camera camera
 
 #start camera server as daemon
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
@@ -168,6 +182,10 @@ on boot
 
 # access permission for wlan
     chown system system /mnt/vendor/persist/WCNSS_qcom_wlan_nv.bin
+
+# DT2W Node
+    chown system system /proc/touchpanel/wakeup_gesture
+    chmod 0660 /proc/touchpanel/wakeup_gesture
 
 service ppd /vendor/bin/mm-pp-dpps
     class late_start
